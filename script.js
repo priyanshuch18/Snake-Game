@@ -220,8 +220,39 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Mobile controls: button clicks set direction
-document.getElementById('up-btn').addEventListener('click', () => direction = 'up');
-document.getElementById('left-btn').addEventListener('click', () => direction = 'left');
-document.getElementById('right-btn').addEventListener('click', () => direction = 'right');
-document.getElementById('down-btn').addEventListener('click', () => direction = 'down');
+// Mobile swipe controls: detect swipe gestures on touch devices
+let touchStartX = 0;
+let touchStartY = 0;
+const minSwipeDistance = 50; // Minimum pixels to register as swipe
+
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchend', (e) => {
+    if (!touchStartX || !touchStartY) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    // Determine swipe direction based on larger delta
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (Math.abs(deltaX) > minSwipeDistance) {
+            direction = deltaX > 0 ? 'right' : 'left';
+        }
+    } else {
+        // Vertical swipe
+        if (Math.abs(deltaY) > minSwipeDistance) {
+            direction = deltaY > 0 ? 'down' : 'up';
+        }
+    }
+
+    // Reset for next swipe
+    touchStartX = 0;
+    touchStartY = 0;
+});
