@@ -220,4 +220,8 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// renderSnake();
+// Mobile controls: button clicks set direction
+document.getElementById('up-btn').addEventListener('click', () => direction = 'up');
+document.getElementById('left-btn').addEventListener('click', () => direction = 'left');
+document.getElementById('right-btn').addEventListener('click', () => direction = 'right');
+document.getElementById('down-btn').addEventListener('click', () => direction = 'down');

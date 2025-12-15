@@ -154,6 +154,37 @@ section .infos{
 
     
 }
-.modal .game-over h3{
-    margin-bottom: var(--space-lg);
+.mobile-controls {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+.mobile-controls button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    background-color: var(--bg-fill-color);
+    color: var(--bg-primary-color);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-controls button:hover {
+    background-color: var(--bg-food-color);
+}
+
+.mobile-controls button:active {
+    transform: scale(0.95);
+}
+
+/* Show mobile controls on screens smaller than 768px */
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: flex;
+    }
 }
