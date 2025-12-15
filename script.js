@@ -223,11 +223,22 @@ document.addEventListener('keydown', (e) => {
 // Mobile swipe controls: detect swipe gestures on touch devices
 let touchStartX = 0;
 let touchStartY = 0;
-const minSwipeDistance = 50; // Minimum pixels to register as swipe
+const minSwipeDistance = 30; // Minimum pixels to register as swipe (lowered for sensitivity)
 
 document.addEventListener('touchstart', (e) => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchmove', (e) => {
+    // Prevent scrolling if it's a potential swipe
+    if (touchStartX && touchStartY) {
+        const deltaX = e.touches[0].clientX - touchStartX;
+        const deltaY = e.touches[0].clientY - touchStartY;
+        if (Math.abs(deltaX) > 20 || Math.abs(deltaY) > 20) {
+            e.preventDefault();
+        }
+    }
 });
 
 document.addEventListener('touchend', (e) => {
